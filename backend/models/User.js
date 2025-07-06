@@ -1,5 +1,3 @@
-import 
-
 class User {
 
     constructor (id, name, birthDate, address, biography) {
@@ -11,17 +9,17 @@ class User {
     }
 
     getAge() {
-        const TODAY = new Date();
-        let userAge = TODAY.getFullYear() - this.birthDate.getFullYear();
+        const today = new Date();
+        let userAge = today.getFullYear() - this.birthDate.getFullYear();
         
-        const MONTH_CHECK = TODAY.getMonth() - this.birthDate.getMonth();
-        const DAY_CHECK = TODAY.getDate() - this.birthDate.getDate();
+        const monthCheck = today.getMonth() - this.birthDate.getMonth();
+        const dayCheck = today.getDate() - this.birthDate.getDate();
                 
-        return (MONTH_CHECK < 0 || (MONTH_CHECK === 0 && DAY_CHECK < 0)) ? --userAge : userAge;
+        return (monthCheck < 0 || (monthCheck === 0 && dayCheck < 0)) ? --userAge : userAge;
     }
 
     toString() {
-        const FORMATED_BIRTH_DATE = this.birthDate.toLocaleDateString();
-        return `User: ${this.name} \n Birth Date: ${FORMATED_BIRTH_DATE} \n Address: ${this.address.toString()} \n Biography: ${this.biography}`;
+        const formatedBirthDate = this.birthDate.toLocaleDateString();
+        return `User: ${this.name} \n Birth Date: ${formatedBirthDate} \n Address: ${this.address.toString()} \n Biography: ${this.biography}`;
     }
 }

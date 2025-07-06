@@ -1,14 +1,19 @@
 require("dotenv").config();
 
-const EXPRESS = require("express");
-const APP = EXPRESS();
-const PORT = process.env.PORT || 5000;
+const express = require("express");
+const expressApp = express();
+const port = process.env.PORT || 5000;
 
-
-APP.get('/test', (request, response) => {
+// Root
+expressApp.get('/test', (request, response) => {
     response.send("<center><h2>Server is online!</h2></center>");
 });
 
-APP.listen(PORT, () => {
-    console.log(`Server is now running on port ${PORT}...`);
+// Routes
+const userRoute = require("./routes/user_route");
+expressApp.use("/usuario", userRoute);
+
+// Start
+expressApp.listen(port, () => {
+    console.log(`Server is now running on port ${port}...`);
 });

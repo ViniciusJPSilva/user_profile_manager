@@ -11,5 +11,4 @@ class Address {
     toString() {
         return `${this.street}, ${this.number}, ${this.neighborhood}, ${this.city} - ${this.state}`;
     }
-
 }
