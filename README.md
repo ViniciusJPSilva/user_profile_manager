@@ -27,8 +27,8 @@ User Profile Manager é uma aplicação full-stack para exibição e edição de
 ## Clonando o Projeto
 
 ```bash
-git clone https://github.com/seu-usuario/user-profile-manager.git
-cd user-profile-manager
+git clone https://github.com/ViniciusJPSilva/user_profile_manager.git
+cd user_profile_manager
 ```
 
 ---
