@@ -35,6 +35,8 @@ cd user_profile_manager
 
 ## Configuração dos Arquivos `.env`
 
+É necessário criar manualmente os arquivos `.env` nos diretórios `backend/` e `frontend/` antes de executar o projeto.
+
 ### Backend: `backend/.env`
 
 ```env
