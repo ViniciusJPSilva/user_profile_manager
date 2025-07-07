@@ -6,8 +6,8 @@ const port = process.env.PORT || 5000;
 const cors = require('cors');
 
 // Root
-expressApp.get('/test', (request, response) => {
-    response.send("<center><h2>Server is online!</h2></center>");
+expressApp.get('/status', (request, response) => {
+    response.json({ "status": "API is running" });
 });
 
 // Routes

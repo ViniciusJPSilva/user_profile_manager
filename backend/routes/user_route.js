@@ -18,8 +18,8 @@ router.get("/", (request, response) => {
     response.json({ user });
 });
 
-router.get("/test", (request, response) => {
-    response.send("<center><h2>Route 'usuario' is accessible!</h2></center>");
+router.get("/status", (request, response) => {
+    response.json({ "status": "Route 'usuario' is accessible" });
 });
 
 module.exports = router;
