@@ -58,11 +58,13 @@ class User {
      */
     toJSON() {
         return {
+            id: this.id,
             name: this.name,
-            birth_date: this.birth_date,
-            address: this.address.toJSON(),
+            birthDate: this.birthDate.toISOString().split("T")[0],
             biography: this.biography,
-            profile_picture: this.profile_picture,
+            profilePicture: this.profilePicture,
+            address: this.address ? this.address.toJSON() : null
+
         };
     }
 }

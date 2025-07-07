@@ -44,6 +44,7 @@ class Address {
      */
     toJSON() {
         return {
+            id: this.id,
             street: this.street,
             number: this.number,
             complement: this.complement,
