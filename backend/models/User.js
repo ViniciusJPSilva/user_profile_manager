@@ -60,9 +60,9 @@ class User {
         return {
             id: this.id,
             name: this.name,
-            birthDate: this.birthDate.toISOString().split("T")[0],
+            birth_date: this.birthDate.toISOString(),
             biography: this.biography,
-            profilePicture: this.profilePicture,
+            profile_picture: this.profilePicture,
             address: this.address ? this.address.toJSON() : null
 
         };
