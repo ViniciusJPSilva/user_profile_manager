@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
 import { Edit, MapPin, Calendar, BookOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { User } from '../types/User';
 import api from '../services/api';
 
 const API_GET_END_POINT = "/usuario";
 
-const Profile = () => {
+export default function Profile() {
   const [error, setError] = useState<unknown | null>(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User>({
@@ -26,6 +26,8 @@ const Profile = () => {
         zip_code: "string",
     }
   });
+
+  const navigate = useNavigate();
 
   useEffect (() => {
     fetchUser();
@@ -50,6 +52,10 @@ const Profile = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoToEditPage = () => {
+    navigate('/edit', { state: { user } });
   };
 
   if (loading) {
@@ -99,13 +105,13 @@ const Profile = () => {
                 <Calendar size={16} />
                 <span className="text-sm">{new Date(user.birth_date).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</span>
               </div>
-              <Link 
-                to="/edit"
+              <button 
+                onClick={handleGoToEditPage}
                 className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors mx-auto md:mx-0"
               >
                 <Edit size={16} />
                 Editar Perfil
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -162,5 +168,3 @@ const Profile = () => {
     </div>
   );
 };
-
-export default Profile;
