@@ -60,28 +60,29 @@ VITE_API_BASE_URL=http://localhost:5000
 Abaixo um exemplo para criação manual via MySQL:
 
 ```sql
-CREATE DATABASE user_profile;
+CREATE DATABASE profiles;
 
-USE user_profile;
+USE profiles;
 
-CREATE TABLE users (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(255),
-  birth_date DATE,
-  biography TEXT
+CREATE TABLE IF NOT EXISTS addresses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(255) NOT NULL,
+    number VARCHAR(50),
+    complement VARCHAR(255),
+    neighborhood VARCHAR(255),
+    city VARCHAR(255) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    zipCode VARCHAR(20)
 );
 
-CREATE TABLE addresses (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT,
-  street VARCHAR(255),
-  number INT,
-  complement VARCHAR(255),
-  neighborhood VARCHAR(255),
-  city VARCHAR(255),
-  state VARCHAR(255),
-  zip_code VARCHAR(20),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    birthDate DATE,
+    biography TEXT,
+    profilePicture VARCHAR(255),
+    addressId INT,
+    FOREIGN KEY (addressId) REFERENCES addresses(id) ON DELETE SET NULL
 );
 ```
 
