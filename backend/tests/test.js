@@ -66,9 +66,9 @@ async function main() {
         const allUsers = await userDAO.findAll();
         console.log("Todos os usuários:", allUsers);
 
-        console.log("\n--- Deletando usuário ---");
-        const deleted = await userDAO.delete(1);
-        console.log("Usuário deletado:", deleted ? "Sim" : "Não");
+        //console.log("\n--- Deletando usuário ---");
+        //const deleted = await userDAO.delete(1);
+        //console.log("Usuário deletado:", deleted ? "Sim" : "Não");
 
     } catch (error) {
         console.error("Ocorreu um erro na execução do exemplo:", error);
