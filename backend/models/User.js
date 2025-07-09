@@ -64,7 +64,6 @@ class User {
             biography: this.biography,
             profile_picture: this.profilePicture,
             address: this.address ? this.address.toJSON() : null
-
         };
     }
 }
