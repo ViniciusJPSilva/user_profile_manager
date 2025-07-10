@@ -86,6 +86,14 @@ CREATE TABLE IF NOT EXISTS users (
 );
 ```
 
+Como alternativa, é possível criar automaticamente o banco de dados, as tabelas e inserir dados iniciais. Para isso, acesse o diretório `backend/` e, após instalar as dependências, execute o seguinte comando:
+
+```bash
+node .\scripts\initDatabase.js
+```
+
+Certifique-se de que o arquivo `.env` esteja corretamente configurado com as credenciais de acesso ao banco de dados MySQL.
+
 ---
 
 ## Instalação e Execução

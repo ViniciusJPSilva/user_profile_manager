@@ -14,9 +14,10 @@ const dbConfig = {
 };
 
 /**
- * 
- * @param {*} response 
- * @returns 
+ * Define os headers de resposta para permitir CORS.
+ *
+ * @param {express.Response} response - Objeto de resposta HTTP.
+ * @returns {express.Response} Resposta com headers definidos.
  */
 function setResponseHeader(response) {
     response.setHeader("Access-Control-Allow-Origin", "*")
@@ -27,20 +28,28 @@ function setResponseHeader(response) {
     return response;
 }
 
+/**
+ * Rota GET para obter o primeiro usuário registrado.
+ */
 router.get("/", async (request, response) => {
-    console.log("Usuário requisitado");
+    console.log("User required");
+    setResponseHeader(response);
 
     const userDAO = new UserDAO(new ConnectionFactory(dbConfig));
-    const user = await userDAO.findById(1);
+    const users = await userDAO.findAll();
 
-    setResponseHeader(response);
-    response.json({ user });
+    const responseJson = (users.length > 0) ? { status: "ok", user: users[0] } : { status: "na" };
+
+    response.json(responseJson);
 });
 
+/**
+ * Rota POST para atualizar os dados de um usuário existente.
+ */
 router.post("/", async(request, response) => {
-    console.log("Usuário atualizado");
+    console.log("User updated");
     setResponseHeader(response);
-
+    
     const user = request.body;
 
     if (!user || !user.name || !user.address) {
@@ -49,14 +58,34 @@ router.post("/", async(request, response) => {
 
     const userDAO = new UserDAO(new ConnectionFactory(dbConfig));
 
-    updatedAddress = new Address(user.address.street, user.address.number, user.address.complement, user.address.neighborhood, user.address.city, user.address.state, user.address.zip_code, user.address.id);
-    updatedUser = new User(user.name, new Date(user.birth_date), updatedAddress, user.biography, user.profile_picture, user.id);
+    updatedAddress = new Address(
+        user.address.street, 
+        user.address.number, 
+        user.address.complement, 
+        user.address.neighborhood, 
+        user.address.city, 
+        user.address.state, 
+        user.address.zip_code, 
+        user.address.id
+    );
+
+    updatedUser = new User(
+        user.name, 
+        new Date(user.birth_date), 
+        updatedAddress, 
+        user.biography, 
+        user.profile_picture, 
+        user.id
+    );
 
     await userDAO.update(updatedUser);
 
-    response.json({ status: "ok", received: user });
+    response.json({ status: "ok", user: updatedUser });
 });
 
+/**
+ * Rota GET de verificação de status da rota 'usuario'.
+ */
 router.get("/status", (request, response) => {
     response.json({ "status": "Route 'usuario' is accessible" });
 });
