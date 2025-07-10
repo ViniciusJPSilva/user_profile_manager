@@ -1,30 +1,44 @@
+
 # User Profile Manager
 
-User Profile Manager é uma aplicação full-stack para exibição e edição de perfis de usuários, com persistência de dados em um banco de dados MySQL. A aplicação permite visualizar e editar informações como nome, endereço, biografia e data de nascimento.
+**User Profile Manager** é uma aplicação full-stack desenvolvida para gerenciamento de perfis de usuários. Permite a visualização e edição de informações como nome, endereço, biografia e data de nascimento, com persistência dos dados em um banco de dados MySQL.
+
+---
+
+## Sumário
+
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Clonagem do Repositório](#clonagem-do-repositório)
+- [Configuração dos Arquivos `.env`](#configuração-dos-arquivos-env)
+- [Criação do Banco de Dados](#criação-do-banco-de-dados)
+- [Instalação e Execução](#instalação-e-execução)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Teste da API](#teste-da-api)
 
 ---
 
 ## Tecnologias Utilizadas
 
-- **Frontend**
+### Frontend
 
-  - React
-  - Vite
-  - TypeScript
-  - Tailwind CSS
-  - Axios
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- Axios
 
-- **Backend**
+### Backend
 
-  - Node.js
-  - Express
-  - MySQL
-  - dotenv
-  - cors
+- Node.js
+- Express
+- MySQL
+- dotenv
+- cors
 
 ---
 
-## Clonando o Projeto
+## Clonagem do Repositório
 
 ```bash
 git clone https://github.com/ViniciusJPSilva/user_profile_manager.git
@@ -37,7 +51,7 @@ cd user_profile_manager
 
 É necessário criar manualmente os arquivos `.env` nos diretórios `backend/` e `frontend/` antes de executar o projeto.
 
-### Backend: `backend/.env`
+### `backend/.env`
 
 ```env
 PORT=5000
@@ -47,7 +61,7 @@ DB_PASSWORD=senha
 DB_DATABASE=user_profile
 ```
 
-### Frontend: `frontend/.env`
+### `frontend/.env`
 
 ```env
 VITE_API_BASE_URL=http://localhost:5000
@@ -55,9 +69,9 @@ VITE_API_BASE_URL=http://localhost:5000
 
 ---
 
-## Criação do Banco de Dados e Tabelas
+## Criação do Banco de Dados
 
-Abaixo um exemplo para criação manual via MySQL:
+A estrutura do banco de dados pode ser criada manualmente utilizando o seguinte script SQL:
 
 ```sql
 CREATE DATABASE profiles;
@@ -86,13 +100,17 @@ CREATE TABLE IF NOT EXISTS users (
 );
 ```
 
-Como alternativa, é possível criar automaticamente o banco de dados, as tabelas e inserir dados iniciais. Para isso, acesse o diretório `backend/` e, após instalar as dependências, execute o seguinte comando:
+Alternativamente, é possível utilizar um script automatizado para criar o banco de dados, tabelas e inserir dados iniciais. Para isso:
+
+1. Acesse o diretório `backend/`.
+2. Instale as dependências com `npm install`.
+3. Execute o script:
 
 ```bash
-node .\scripts\initDatabase.js
+node scripts/initDatabase.js
 ```
 
-Certifique-se de que o arquivo `.env` esteja corretamente configurado com as credenciais de acesso ao banco de dados MySQL.
+Certifique-se de que o arquivo `.env` do backend esteja corretamente configurado.
 
 ---
 
@@ -106,31 +124,34 @@ npm install
 npm start
 ```
 
-A API será iniciada na porta definida no `.env` (por padrão: `http://localhost:5000`).
-
-#### Teste da API
-
-Para testar se a API está funcionando:
-
-```bash
-GET http://localhost:5000/status
-```
-
-Resposta esperada:
-
-```json
-{ "status": "API is running" }
-```
-
----
+A API será iniciada na porta definida no arquivo `.env`. Por padrão: `http://localhost:5000`.
 
 ### Frontend
 
 ```bash
 cd frontend
 npm install
-npm start
+npm run dev
 ```
 
-A aplicação estará disponível em `http://localhost:5173` (porta padrão do Vite).
+A aplicação estará disponível em: `http://localhost:5173`.
 
+---
+
+## Teste da API
+
+Para verificar se a API está em execução corretamente, acesse o seguinte endpoint:
+
+```
+GET http://localhost:5000/status
+```
+
+Resposta esperada:
+
+```json
+{
+  "status": "API is running"
+}
+```
+
+---
