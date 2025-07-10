@@ -54,17 +54,17 @@ cd user_profile_manager
 ### `backend/.env`
 
 ```env
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=senha
-DB_DATABASE=user_profile
+PORT=<porta>
+DB_HOST=<host_do_banco>
+DB_USER=<usuario_do_banco>
+DB_PASSWORD=<senha_do_banco>
+DB_DATABASE=<nome_do_banco>
 ```
 
 ### `frontend/.env`
 
 ```env
-VITE_API_BASE_URL=http://localhost:5000
+VITE_API_BASE_URL=<url_da_api>
 ```
 
 ---
@@ -131,7 +131,7 @@ A API será iniciada na porta definida no arquivo `.env`. Por padrão: `http://l
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
 ```
 
 A aplicação estará disponível em: `http://localhost:5173`.
