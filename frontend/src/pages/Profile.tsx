@@ -1,61 +1,77 @@
+import { useEffect, useState, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Edit, MapPin, Calendar, BookOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import type { User } from '../types/User';
 import api from '../services/api';
 
 const API_GET_END_POINT = "/usuario";
 
 export default function Profile() {
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [error, setError] = useState<unknown | null>(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User>({
-    id: "string",
-    name: "string",
-    email: "string",
-    birth_date: "string",
-    biography: "string",
-    profile_picture: "string",
+    id: 0,
+    name: "",
+    birth_date: "",
+    biography: "",
+    profile_picture: "",
     address: {
-        street: "string",
-        number: "string",
-        complement: "string",
-        neighborhood: "string",
-        city: "string",
-        state: "string",
-        zip_code: "string",
+        id: 0,
+        street: "",
+        number: 0,
+        complement: "",
+        neighborhood: "",
+        city: "",
+        state: "",
+        zip_code: "",
     }
   });
 
-  const navigate = useNavigate();
+  const fetchUser = useCallback(async () => {
+    const editedUser = location.state?.user;
 
-  useEffect (() => {
-    fetchUser();
-  }, []);
+    if (editedUser) {
+      setUser(editedUser);
+      setLoading(false);
+      return;
+    }
 
-  useEffect (() => {
-    console.log(user);
-  }, [user]);
-
-  const fetchUser = async () => {
     setLoading(true);
     setError(null);
     
     try {
       const response = await api.get(API_GET_END_POINT);
-      if (response.data?.user) {
+      if (response.data?.status === "ok") {
         setUser(response.data.user);
+      } else {
+        throw new Error("User data not found");
       }
     } catch (err) {
-      console.error("Erro ao requisitar os dados do usuário à API", err);
+      console.error("Error requesting user data from the API", err);
       setError(err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [location.state]);
+
+  useEffect (() => {
+      fetchUser();
+  }, [fetchUser]);
 
   const handleGoToEditPage = () => {
     navigate('/edit', { state: { user } });
+  };
+
+  const formatCep = (cep: string) => {
+    const cleanCep = cep.replace(/\D/g, '');
+    if (cleanCep.length === 8) {
+      return `${cleanCep.slice(0, 5)}-${cleanCep.slice(5)}`;
+    }
+    return cep;
   };
 
   if (loading) {
@@ -136,7 +152,7 @@ export default function Profile() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">CEP</label>
-              <p className="text-gray-600">{user.address.zip_code}</p>
+              <p className="text-gray-600">{formatCep(user.address.zip_code)}</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Rua</label>
@@ -148,7 +164,7 @@ export default function Profile() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Complemento</label>
-              <p className="text-gray-600">{user.address.complement || 'N/A'}</p>
+              <p className="text-gray-600">{user.address.complement || '-'}</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Bairro</label>
